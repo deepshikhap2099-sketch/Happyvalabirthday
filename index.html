@@ -248,6 +248,18 @@ button {
 }
   
 
+/* Flickering flames on the 30 candles */
+.number-flame {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: candleFlicker 0.75s infinite ease-in-out;
+}
+
+.inner-flame {
+  animation-duration: 0.65s;
+  animation-direction: alternate;
+}
+  
   
 </style>
 </head>
@@ -376,19 +388,40 @@ button {
       </g>
 
       <!-- Separate golden number candles -->
-      <g text-anchor="middle" font-family="Georgia,serif"
-         font-weight="bold" fill="url(#goldCandle)"
-         stroke="#ad771f" stroke-width="1">
+      
+<!-- Realistic golden number candles -->
+<g text-anchor="middle" font-family="Georgia,serif"
+   font-weight="bold">
 
-        <path d="M153 48 Q141 32 153 16 Q165 32 153 48Z"
-              fill="#ffad36" stroke="none"/>
-        <path d="M207 48 Q195 32 207 16 Q219 32 207 48Z"
-              fill="#ffad36" stroke="none"/>
+  <!-- Individual flames -->
+  <path class="number-flame"
+        d="M153 48 Q139 32 153 12 Q168 32 153 48Z"
+        fill="#ff9f27"/>
+  <path class="number-flame inner-flame"
+        d="M153 43 Q147 32 153 23 Q160 34 153 43Z"
+        fill="#fff1a6"/>
 
-        <text x="153" y="105" font-size="66">3</text>
-        <text x="207" y="105" font-size="66">0</text>
-      </g>
+  <path class="number-flame"
+        d="M207 48 Q193 32 207 12 Q222 32 207 48Z"
+        fill="#ff9f27"/>
+  <path class="number-flame inner-flame"
+        d="M207 43 Q201 32 207 23 Q214 34 207 43Z"
+        fill="#fff1a6"/>
 
+  <!-- Thick wax-like golden numbers -->
+  <text x="153" y="105" font-size="66"
+        fill="#b87919" stroke="#986014"
+        stroke-width="5" stroke-linejoin="round">3</text>
+  <text x="153" y="105" font-size="66"
+        fill="url(#goldCandle)">3</text>
+
+  <text x="207" y="105" font-size="66"
+        fill="#b87919" stroke="#986014"
+        stroke-width="5" stroke-linejoin="round">0</text>
+  <text x="207" y="105" font-size="66"
+        fill="url(#goldCandle)">0</text>
+</g>
+      
       <!-- Cake plate -->
       <ellipse cx="180" cy="209" rx="148" ry="13"
                fill="#f5d6d9" stroke="#d99ba9" stroke-width="3"/>

@@ -74,7 +74,15 @@ button {
 
   <div class="card">
     <h2>Your Birthday Cake 🎂</h2>
-    <div id="cake" onclick="blow()">🎂</div>
+    <div class="candle-grid" id="candleGrid"></div>
+
+<div class="cake-display">🎂</div>
+
+<p id="cakeText">30 candles for 30 wonderful years! ❤️</p>
+
+<button class="blow-button" onclick="blow()">
+  💨 Blow out all 30 candles!
+</button>
     <p id="cakeText">Tap the cake to blow out your candles!</p>
     <button onclick="blow()">Blow out candles 🕯️</button>
   </div>
@@ -234,7 +242,49 @@ reasons.forEach((reason,index) => {
 
   grid.appendChild(button);
 });
-  
+  let candlesOut = 0;
+
+const candleGrid = document.getElementById("candleGrid");
+
+for (let i = 0; i < 30; i++) {
+  const candle = document.createElement("button");
+  candle.className = "candle";
+  candle.innerHTML =
+    '<span class="flame">🔥</span><span class="wax"></span>';
+
+  candle.onclick = () => {
+    if (candle.classList.contains("out")) return;
+
+    candle.classList.add("out");
+    candlesOut++;
+    updateCake();
+  };
+
+  candleGrid.appendChild(candle);
+}
+
+function updateCake() {
+  document.getElementById("cakeText").textContent =
+    candlesOut + " / 30 candles blown out! ❤️";
+
+  if (candlesOut === 30) {
+    document.getElementById("cakeText").textContent =
+      "HAPPY 30TH BIRTHDAY, GAGAN! 🎉❤️";
+
+    confetti();
+  }
+}
+
+function blow() {
+  document.querySelectorAll(".candle").forEach(candle => {
+    if (!candle.classList.contains("out")) {
+      candle.classList.add("out");
+      candlesOut++;
+    }
+  });
+
+  updateCake();
+}
 </script>
 </body>
 </html>

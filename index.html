@@ -221,6 +221,32 @@ button {
 }
 
 
+/* Gentle candle flame animation */
+@keyframes candleFlicker {
+  0%, 100% {
+    transform: scale(1) rotate(-2deg);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.08) rotate(3deg);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(0.94) rotate(-3deg);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(1.05) rotate(2deg);
+    opacity: 0.92;
+  }
+}
+
+.small-flame {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: candleFlicker 0.8s infinite ease-in-out;
+}
+  
 
   
 </style>

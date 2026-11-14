@@ -413,6 +413,67 @@ button {
 #surprise {
   animation: surpriseAppear 1s ease both;
 }
+  /* Birthday slide layout */
+#surprise .birthday-slide {
+  display: none;
+  opacity: 0;
+  transform: translateX(25px);
+}
+
+#surprise .birthday-slide.active {
+  display: block;
+  animation: slideIn 0.6s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-progress {
+  max-width: 500px;
+  margin: 15px auto 25px;
+  padding: 0 20px;
+  text-align: center;
+  color: #f5d49a;
+}
+
+.progress-track {
+  height: 5px;
+  margin-top: 10px;
+  background: #ffffff30;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#progressFill {
+  height: 100%;
+  width: 25%;
+  background: #f5d49a;
+  border-radius: 20px;
+  transition: width 0.5s ease;
+}
+
+.slide-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 25px auto 40px;
+}
+
+.slide-navigation button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+
   
 </style>
 </head>
@@ -442,7 +503,7 @@ button {
   </div>
 
   
-<div class="card">
+<div class="card birthday-slide">
   <h2>Your Birthday Cake 🎂</h2>
 
   <div style="max-width:360px;margin:20px auto;">
@@ -597,12 +658,12 @@ button {
 </div>
   
 
-  <div class="card">
+  <div class="card birthday-slide">
     <h2>A Little Note ❤️</h2>
     <p>My favourite person, my safe place, my forever favourite human. Happy 30th birthday. Here's to all the beautiful memories still waiting for us.</p>
   </div>
   
-<div class="card">
+<div class="card birthday-slide">
   <p class="small">A LITTLE GAME FOR YOU</p>
   <h2>30 Things I Love About You ❤️</h2>
   <p>Thirty little hearts. Thirty little reasons.
@@ -644,6 +705,16 @@ button {
     You opened all 30! But here's a secret...
     I'll always find more reasons to love you. ❤️
   </p>
+</div>
+
+<div class="slide-navigation">
+  <button id="prevSlide" onclick="changeSlide(-1)" disabled>
+    ← Wanna see again🤗
+  </button>
+
+  <button id="nextSlide" onclick="changeSlide(1)">
+    Next Surprise ❤️ →
+  </button>
 </div>
   
 </section>
@@ -858,6 +929,40 @@ function blow() {
 
   updateCake();
 }
+
+let currentSlide = 0;
+
+const birthdaySlides = document.querySelectorAll(".birthday-slide");
+
+function changeSlide(direction) {
+  const next = currentSlide + direction;
+
+  if (next < 0 || next >= birthdaySlides.length) return;
+
+  birthdaySlides[currentSlide].classList.remove("active");
+  currentSlide = next;
+  birthdaySlides[currentSlide].classList.add("active");
+
+  document.getElementById("slideCounter").textContent =
+    `0${currentSlide + 1} / 04`;
+
+  document.getElementById("progressFill").style.width =
+    `${((currentSlide + 1) / birthdaySlides.length) * 100}%`;
+
+  document.getElementById("prevSlide").disabled = currentSlide === 0;
+
+  document.getElementById("nextSlide").textContent =
+    currentSlide === birthdaySlides.length - 1
+      ? "The End ❤️"
+      : "Next Surprise ❤️ →";
+
+  document.getElementById("surprise").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+  
 </script>
 
   

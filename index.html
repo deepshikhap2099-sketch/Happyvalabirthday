@@ -143,6 +143,12 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),7000);
 },900);
+  function openLetter() {
+  const letter = document.getElementById("loveLetter");
+
+  letter.style.display = "block";
+  letter.scrollIntoView({behavior:"smooth",block:"center"});
+}
 </script>
 </body>
 </html>

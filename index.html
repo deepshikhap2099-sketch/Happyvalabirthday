@@ -1,1 +1,149 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gagan Turns 30 ❤️</title>
+<style>
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family:Georgia,serif;
+  color:#fff5e9;
+  background:linear-gradient(145deg,#260b19,#6d203d,#160c20);
+  text-align:center;
+  overflow-x:hidden;
+}
+section { padding:65px 20px; min-height:85vh; }
+h1 { font-size:clamp(38px,10vw,65px); color:#f6d79c; }
+h2 { color:#f5d49a; font-size:30px; }
+p { line-height:1.8; }
+button {
+  border:1px solid #f2d49a;
+  background:#f2d49a;
+  color:#41152a;
+  padding:14px 24px;
+  border-radius:30px;
+  font-size:16px;
+  margin:10px;
+  cursor:pointer;
+}
+.card {
+  max-width:520px;
+  margin:25px auto;
+  padding:30px 20px;
+  background:#ffffff12;
+  border:1px solid #ffffff35;
+  border-radius:22px;
+  backdrop-filter:blur(8px);
+}
+#cake { font-size:95px; cursor:pointer; }
+.heart {
+  position:fixed;
+  bottom:-30px;
+  animation:float 7s linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
+@keyframes float {
+  to { transform:translateY(-110vh) rotate(360deg); opacity:0; }
+}
+#surprise { display:none; }
+.small { color:#e9c7d0; font-size:14px; }
+</style>
+</head>
+<body>
+
+<audio id="music" src="atlasaudio-birthday-606219.mp3" loop preload="auto"></audio>
+
+<section id="welcome">
+  <p class="small">A LITTLE WORLD MADE JUST FOR YOU</p>
+  <h1>Happy 30th Birthday,<br>Gagan ❤️</h1>
+  <p>Three decades of you. A lifetime of reasons to love you.</p>
+  <button onclick="start()">Open Your Surprise 💌</button>
+  <p class="small">Made with all my love.</p>
+</section>
+
+<section id="surprise">
+  <div class="card">
+    <p>THE BIG THREE-OH!</p>
+    <h2>Cheers to 30, my love! 🥂</h2>
+    <p>Thirty looks wonderful on you. And I feel so lucky to celebrate another year of your beautiful existence.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your Birthday Cake 🎂</h2>
+    <div id="cake" onclick="blow()">🎂</div>
+    <p id="cakeText">Tap the cake to blow out your candles!</p>
+    <button onclick="blow()">Blow out candles 🕯️</button>
+  </div>
+
+  <div class="card">
+    <h2>A Little Note ❤️</h2>
+    <p>My favourite person, my safe place, my forever favourite human. Happy 30th birthday. Here's to all the beautiful memories still waiting for us.</p>
+  </div>
+</section>
+
+<button id="musicButton" onclick="toggleMusic()" style="position:fixed;bottom:15px;right:12px;z-index:5">
+  🎵 Music
+</button>
+
+<script>
+const music = document.getElementById("music");
+
+function start() {
+  document.getElementById("surprise").style.display="block";
+  music.play().catch(()=> {
+    document.getElementById("musicButton").textContent="🎵 Tap to play";
+  });
+  document.getElementById("welcome").style.minHeight="auto";
+  document.getElementById("surprise").scrollIntoView({behavior:"smooth"});
+}
+
+function toggleMusic() {
+  if(music.paused) {
+    music.play();
+    document.getElementById("musicButton").textContent="🎵 Music";
+  } else {
+    music.pause();
+    document.getElementById("musicButton").textContent="🔇 Muted";
+  }
+}
+
+let blown=false;
+function blow() {
+  if(blown) return;
+  blown=true;
+  document.getElementById("cake").textContent="🍰";
+  document.getElementById("cakeText").textContent="YAY! Make a wish, birthday boy! ❤️";
+  confetti();
+}
+
+function confetti() {
+  for(let i=0;i<35;i++) {
+    const el=document.createElement("div");
+    el.textContent=["✨","❤️","🎉","⭐"][i%4];
+    el.style.cssText=`position:fixed;left:${Math.random()*100}%;top:${Math.random()*80}%;font-size:24px;pointer-events:none;z-index:10;transition:transform 2s,opacity 2s`;
+    document.body.appendChild(el);
+    setTimeout(()=>{
+      el.style.transform=`translateY(${150+Math.random()*250}px) rotate(360deg)`;
+      el.style.opacity="0";
+    },50);
+    setTimeout(()=>el.remove(),2200);
+  }
+}
+
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent=["❤️","💕","✨"][Math.floor(Math.random()*3)];
+  h.style.left=Math.random()*100+"%";
+  h.style.fontSize=(15+Math.random()*20)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+},900);
+</script>
+</body>
+</html>
+

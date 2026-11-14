@@ -416,40 +416,35 @@ button {
 
 #surprise .card {
   opacity: 0;
+  visibility: hidden;
+  transform: translateY(35px);
   animation: cardReveal 0.8s ease forwards;
 }
 
 #surprise .card:nth-child(1) {
-  animation-delay: 0.2s;
+  animation-delay: 0.5s;
 }
 
 #surprise .card:nth-child(2) {
-  animation-delay: 0.6s;
+  animation-delay: 2s;
 }
 
 #surprise .card:nth-child(3) {
-  animation-delay: 1s;
+  animation-delay: 3.5s;
 }
 
 #surprise .card:nth-child(4) {
-  animation-delay: 1.4s;
-}
-
-@keyframes surpriseAppear {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  animation-delay: 5s;
 }
 
 @keyframes cardReveal {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
   to {
     opacity: 1;
+    visibility: visible;
     transform: translateY(0);
   }
 }
+  
 </style>
 </head>
 <body>

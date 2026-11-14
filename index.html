@@ -83,6 +83,28 @@ button {
     <h2>A Little Note ❤️</h2>
     <p>My favourite person, my safe place, my forever favourite human. Happy 30th birthday. Here's to all the beautiful memories still waiting for us.</p>
   </div>
+  
+<div class="card">
+  <p class="small">A LITTLE GAME FOR YOU</p>
+  <h2>30 Things I Love About You ❤️</h2>
+  <p>Thirty little hearts. Thirty little reasons.
+  Tap each one to discover what's inside.</p>
+
+  <div class="reason-grid" id="reasonGrid"></div>
+
+  <div class="reason-detail" id="reasonDetail">
+    <h2 id="reasonTitle"></h2>
+    <p id="reasonText"></p>
+  </div>
+
+  <p id="openedCount">0 / 30 hearts discovered ❤️</p>
+
+  <p id="allOpened">
+    You opened all 30! But here's a secret...
+    I'll always find more reasons to love you. ❤️
+  </p>
+</div>
+  
 </section>
 
 <button id="musicButton" onclick="toggleMusic()" style="position:fixed;bottom:15px;right:12px;z-index:5">
@@ -149,6 +171,70 @@ setInterval(()=>{
   letter.style.display = "block";
   letter.scrollIntoView({behavior:"smooth",block:"center"});
 }
+  
+const reasons = [
+["Your never-ending talks","Because silence was never part of your vocabulary. And I wouldn't have it any other way."],
+["Your impatience","Even your impatient little self is somehow adorable."],
+["The way you pour love into everything","You make ordinary things feel extraordinary."],
+["Your memory for little things","You remember the tiniest details, and that makes me feel so loved."],
+["Those random highway flowers","Because who needs a florist when I have you plucking flowers on random highways?"],
+["Your love for clichés","You do cheesy things just because you know I like them. And I LOVE that."],
+["Your passion for work","I love seeing how passionately you chase what matters to you."],
+["Your active self","You always seem to have energy for another adventure."],
+["Your playful side","You can turn the smallest moment into a whole lot of fun."],
+["How annoyingly adorable you are","Sometimes you're SO annoying. Unfortunately, I love you anyway."],
+["Your enthusiasm","I love how excited you get about the things you love."],
+["Your little gestures","You make me feel special without needing a special occasion."],
+["Your thoughtful nature","You notice the little things that others might miss."],
+["Your silly side","Life would be so boring without your nonsense."],
+["Your determination","When you want something, you give it your all."],
+["The way you make days special","You turn random days into beautiful memories."],
+["Your expressive nature","There is never a shortage of things to talk about with you."],
+["Your zest for life","I love the way you throw yourself into things."],
+["Your unexpected surprises","It's the little unexpected things that stay with me."],
+["Your romantic clichés","You know exactly how to make me melt."],
+["Your ability to make me laugh","Even when I'm trying very hard not to."],
+["Your little habits","Even the ones you probably don't realise you have."],
+["The way you show affection","You have your own beautiful ways of making me feel loved."],
+["Your curiosity","There's always something new you're excited to explore."],
+["Your dedication","I admire the heart you put into everything that matters."],
+["Our memories","I love that our story is still being written."],
+["Your imperfectly perfect self","I don't need perfect. I just want you, exactly as you are."],
+["All the little things you do","You probably don't even realise how much they mean to me."],
+["Who I am around you","I love the happiness and silliness you bring out in me."],
+["Simply YOU","After all these reasons, the biggest one is that I just love you."]
+];
+
+let openedReasons = new Set();
+
+const grid = document.getElementById("reasonGrid");
+
+reasons.forEach((reason,index) => {
+  const button = document.createElement("button");
+  button.className = "reason-heart";
+  button.innerHTML = `❤️<span>${index+1}</span>`;
+
+  button.onclick = () => {
+    document.getElementById("reasonTitle").textContent = reason[0];
+    document.getElementById("reasonText").textContent = reason[1];
+
+    const detail = document.getElementById("reasonDetail");
+    detail.style.display = "block";
+
+    button.classList.add("opened");
+    openedReasons.add(index);
+
+    document.getElementById("openedCount").textContent =
+      `${openedReasons.size} / 30 hearts discovered ❤️`;
+
+    if(openedReasons.size === 30) {
+      document.getElementById("allOpened").style.display = "block";
+    }
+  };
+
+  grid.appendChild(button);
+});
+  
 </script>
 </body>
 </html>

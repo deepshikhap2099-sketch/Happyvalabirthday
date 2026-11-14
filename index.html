@@ -473,7 +473,21 @@ button {
   cursor: not-allowed;
 }
 
+#finalMessage {
+  display: none;
+  margin-top: 22px;
+  animation: cardReveal 0.8s ease forwards;
+  color: #fff0df;
+}
 
+#finalMessage h2 {
+  color: #f5d49a;
+}
+
+.final-surprise {
+  margin-top: 20px;
+  text-align: center;
+}
   
 </style>
 </head>
@@ -657,11 +671,6 @@ button {
   </button>
 </div>
   
-
-  <div class="card birthday-slide">
-    <h2>A Little Note ❤️</h2>
-    <p>My favourite person, my safe place, my forever favourite human. Happy 30th birthday. Here's to all the beautiful memories still waiting for us.</p>
-  </div>
   
 <div class="card birthday-slide">
   <p class="small">A LITTLE GAME FOR YOU</p>
@@ -707,6 +716,22 @@ button {
   </p>
 </div>
 
+  <div class="card birthday-slide">
+    <h2>A Little Note ❤️</h2>
+    <p>My favourite person, my safe place, my forever favourite human. Happy 30th birthday. Here's to all the beautiful memories still waiting for us.</p>
+    <div class="final-surprise">
+  <button onclick="revealFinalMessage()">
+    Wait… one last thing ❤️
+  </button>
+
+  <div id="finalMessage">
+    <h2>I'd choose you. Every single time. ❤️</h2>
+    <p>At 30, at 60, and in every lifetime. Happy birthday, my forever favourite person.</p>
+    <p>Forever yours. 💋</p>
+  </div>
+    </div>
+  </div>
+  
 <div class="slide-navigation">
   <button id="prevSlide" onclick="changeSlide(-1)" disabled>
     ← Wanna see again🤗
@@ -962,6 +987,10 @@ function changeSlide(direction) {
   });
 }
 
+  function revealFinalMessage() {
+  document.getElementById("finalMessage").style.display = "block";
+  document.querySelector(".final-surprise button").style.display = "none";
+  }
   
 </script>
 

@@ -186,6 +186,36 @@ button {
   height: 10px;
 }
   
+/* Birthday cake illustration */
+#birthdayCake {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 8px 12px rgba(80, 25, 45, 0.16));
+}
+
+/* Little candles */
+.small-candle {
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+
+.small-candle.out {
+  opacity: 0.75;
+}
+
+.small-candle .small-flame {
+  transition: opacity 0.2s ease;
+}
+
+/* Cake message */
+#cakeText {
+  text-align: center;
+  font-weight: 600;
+  margin: 14px 0;
+}
+  
 .blow-button {
   margin-top: 15px;
 }
@@ -502,49 +532,45 @@ reasons.forEach((reason,index) => {
 
   grid.appendChild(button);
 });
-  let candlesOut = 0;
+  
+let candlesOut = 0;
 
-const candleGrid = document.getElementById("candleGrid");
+document.querySelectorAll(".small-candle").forEach(candle => {
+  candle.style.cursor = "pointer";
 
-for (let i = 0; i < 6; i++) {
-  const candle = document.createElement("button");
-  candle.className = "candle";
-  candle.innerHTML =
-    '<span class="flame">🔥</span><span class="wax"></span>';
-
-  candle.onclick = () => {
+  candle.addEventListener("click", () => {
     if (candle.classList.contains("out")) return;
 
     candle.classList.add("out");
+    candle.querySelector(".small-flame").style.display = "none";
     candlesOut++;
     updateCake();
-  };
-
-  candleGrid.appendChild(candle);
-}
+  });
+});
 
 function updateCake() {
   document.getElementById("cakeText").textContent =
-    candlesOut + " / 6 candles blown out! ❤️";
+    candlesOut + " / 6 little candles blown out! ❤️";
 
   if (candlesOut === 6) {
     document.getElementById("cakeText").textContent =
       "HAPPY 30TH BIRTHDAY, GAGAN! 🎉❤️";
-
     confetti();
   }
 }
 
 function blow() {
-  document.querySelectorAll(".candle").forEach(candle => {
+  document.querySelectorAll(".small-candle").forEach(candle => {
     if (!candle.classList.contains("out")) {
       candle.classList.add("out");
+      candle.querySelector(".small-flame").style.display = "none";
       candlesOut++;
     }
   });
 
   updateCake();
 }
+  
 </script>
 </body>
 </html>

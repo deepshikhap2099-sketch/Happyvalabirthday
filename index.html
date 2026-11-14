@@ -214,35 +214,138 @@ button {
     <p>Thirty looks wonderful on you. And I feel so lucky to celebrate another year of your beautiful existence.</p>
   </div>
 
-  <div class="card">
-    <h2>Your Birthday Cake 🎂</h2>
-    
-
-
-<div class="cake-scene">
   
-<div class="cake-body">
-  <div class="icing"></div>
-  <div class="cake-decoration">🍓　🍒　🍓</div>
-</div>
+<div class="card">
+  <h2>Your Birthday Cake 🎂</h2>
 
-<div class="cake-top"></div>
+  <div style="max-width:360px;margin:20px auto;">
+    <svg id="birthdayCake" viewBox="0 0 360 245"
+         width="100%" xmlns="http://www.w3.org/2000/svg">
 
-<div class="number-candle">
-  <span>🔥</span>
-  <strong>30</strong>
-</div>
+      <defs>
+        <linearGradient id="pinkCake" x1="0" x2="1">
+          <stop offset="0" stop-color="#bd587a"/>
+          <stop offset=".5" stop-color="#f3a9bd"/>
+          <stop offset="1" stop-color="#b94d72"/>
+        </linearGradient>
+        <linearGradient id="goldCandle" x1="0" x2="1">
+          <stop offset="0" stop-color="#a96d13"/>
+          <stop offset=".45" stop-color="#fff0a0"/>
+          <stop offset="1" stop-color="#bd8420"/>
+        </linearGradient>
+      </defs>
 
-<div class="candle-grid" id="candleGrid"></div>
-  
-</div>
+      <!-- Cake shadow -->
+      <ellipse cx="180" cy="211" rx="145" ry="15"
+               fill="#57283b" opacity=".2"/>
 
+      <!-- Cake body -->
+      <path d="M35 133 Q180 175 325 133 L325 190
+               Q180 235 35 190 Z"
+            fill="url(#pinkCake)" stroke="#d783a0" stroke-width="3"/>
 
-<button class="blow-button" onclick="blow()">
-  💨 Blow out the candles!
-</button>
-    
+      <!-- Cake bottom trim -->
+      <path d="M38 183 Q180 222 322 183"
+            fill="none" stroke="#fff0dc" stroke-width="9"
+            stroke-linecap="round"/>
+
+      <!-- Cream frosting -->
+      <ellipse cx="180" cy="132" rx="145" ry="48"
+               fill="#fff0df" stroke="#e6a5b5" stroke-width="3"/>
+
+      <!-- Pink frosting drips -->
+      <path d="M42 132 Q55 145 69 133 Q82 164 98 143
+               Q115 162 130 143 Q151 166 168 143
+               Q185 163 202 143 Q222 163 238 142
+               Q259 160 274 137 Q298 151 318 130"
+            fill="none" stroke="#f2b2c6" stroke-width="9"
+            stroke-linecap="round"/>
+
+      <!-- Cream decorations -->
+      <g fill="#fff9ed" stroke="#e8b5b9" stroke-width="2">
+        <circle cx="65" cy="116" r="10"/>
+        <circle cx="295" cy="116" r="10"/>
+        <circle cx="90" cy="145" r="7"/>
+        <circle cx="270" cy="145" r="7"/>
+      </g>
+
+      <!-- Strawberries -->
+      <g fill="#e94c68">
+        <path d="M48 113 Q39 91 55 94 Q72 91 63 113 Q56 125 48 113Z"/>
+        <path d="M298 113 Q289 91 305 94 Q322 91 313 113 Q306 125 298 113Z"/>
+      </g>
+      <g fill="#4d985c">
+        <path d="M49 96 l-5 -8 10 4 5 -7 3 10Z"/>
+        <path d="M299 96 l-5 -8 10 4 5 -7 3 10Z"/>
+      </g>
+
+      <!-- Six small candles -->
+      <g id="smallCandles">
+
+        <g class="small-candle" data-candle="0" transform="translate(91 82)">
+          <path class="small-flame" d="M0 0 Q-12 -12 0 -25 Q12 -12 0 0Z" fill="#ffad36"/>
+          <path d="M-4 3 L-4 31 L4 31 L4 3Z" fill="#fff0d2" stroke="#d98c91"/>
+          <path d="M-4 12 L4 17 M-4 23 L4 28" stroke="#df83a1" stroke-width="3"/>
+        </g>
+
+        <g class="small-candle" data-candle="1" transform="translate(125 57)">
+          <path class="small-flame" d="M0 0 Q-12 -12 0 -25 Q12 -12 0 0Z" fill="#ffad36"/>
+          <path d="M-4 3 L-4 31 L4 31 L4 3Z" fill="#fff0d2" stroke="#d98c91"/>
+          <path d="M-4 12 L4 17 M-4 23 L4 28" stroke="#df83a1" stroke-width="3"/>
+        </g>
+
+        <g class="small-candle" data-candle="2" transform="translate(235 57)">
+          <path class="small-flame" d="M0 0 Q-12 -12 0 -25 Q12 -12 0 0Z" fill="#ffad36"/>
+          <path d="M-4 3 L-4 31 L4 31 L4 3Z" fill="#fff0d2" stroke="#d98c91"/>
+          <path d="M-4 12 L4 17 M-4 23 L4 28" stroke="#df83a1" stroke-width="3"/>
+        </g>
+
+        <g class="small-candle" data-candle="3" transform="translate(269 82)">
+          <path class="small-flame" d="M0 0 Q-12 -12 0 -25 Q12 -12 0 0Z" fill="#ffad36"/>
+          <path d="M-4 3 L-4 31 L4 31 L4 3Z" fill="#fff0d2" stroke="#d98c91"/>
+          <path d="M-4 12 L4 17 M-4 23 L4 28" stroke="#df83a1" stroke-width="3"/>
+        </g>
+
+        <g class="small-candle" data-candle="4" transform="translate(120 126)">
+          <path class="small-flame" d="M0 0 Q-12 -12 0 -25 Q12 -12 0 0Z" fill="#ffad36"/>
+          <path d="M-4 3 L-4 22 L4 22 L4 3Z" fill="#fff0d2" stroke="#d98c91"/>
+          <path d="M-4 12 L4 17" stroke="#df83a1" stroke-width="3"/>
+        </g>
+
+        <g class="small-candle" data-candle="5" transform="translate(240 126)">
+          <path class="small-flame" d="M0 0 Q-12 -12 0 -25 Q12 -12 0 0Z" fill="#ffad36"/>
+          <path d="M-4 3 L-4 22 L4 22 L4 3Z" fill="#fff0d2" stroke="#d98c91"/>
+          <path d="M-4 12 L4 17" stroke="#df83a1" stroke-width="3"/>
+        </g>
+      </g>
+
+      <!-- Separate golden number candles -->
+      <g text-anchor="middle" font-family="Georgia,serif"
+         font-weight="bold" fill="url(#goldCandle)"
+         stroke="#ad771f" stroke-width="1">
+
+        <path d="M153 48 Q141 32 153 16 Q165 32 153 48Z"
+              fill="#ffad36" stroke="none"/>
+        <path d="M207 48 Q195 32 207 16 Q219 32 207 48Z"
+              fill="#ffad36" stroke="none"/>
+
+        <text x="153" y="105" font-size="66">3</text>
+        <text x="207" y="105" font-size="66">0</text>
+      </g>
+
+      <!-- Cake plate -->
+      <ellipse cx="180" cy="209" rx="148" ry="13"
+               fill="#f5d6d9" stroke="#d99ba9" stroke-width="3"/>
+    </svg>
   </div>
+
+  <p id="cakeText">Six little candles for your special day! ❤️</p>
+
+  <button onclick="blow()">
+    💨 Blow out all six candles!
+  </button>
+</div>
+  
 
   <div class="card">
     <h2>A Little Note ❤️</h2>

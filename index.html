@@ -127,59 +127,65 @@ button {
   font-size: 23px;
 }
 
-/* Thirty candles: three rows of ten */
-.candle-grid {
+
+.number-candle {
   position: absolute;
-  z-index: 5;
-  top: 43px;
+  z-index: 7;
+  top: 12px;
   left: 50%;
   transform: translateX(-50%);
-  width: 270px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #d49a32;
+  text-shadow: 1px 2px 3px #8b5a19;
+}
+
+.number-candle span {
+  font-size: 17px;
+}
+
+.number-candle strong {
+  font-size: 35px;
+  line-height: 1;
+  background: linear-gradient(
+    135deg, #fff0a6, #d69b26, #fff0a6
+  );
+  color: #b47a13;
+  padding: 3px 9px;
+  border: 2px solid #e7bb58;
+  border-radius: 8px;
+}
+
+.candle-grid {
+  position: absolute;
+  z-index: 6;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(3, 22px);
+  grid-template-columns: repeat(6, 1fr);
   justify-items: center;
   align-items: end;
   gap: 0;
 }
 
 .candle {
-  width: 20px;
-  height: 25px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  cursor: pointer;
+  width: 18px;
+  height: 22px;
 }
 
 .candle .flame {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 12px;
-  transition: opacity .3s, transform .3s;
 }
 
 .candle .wax {
-  display: block;
-  width: 7px;
-  height: 15px;
-  border-radius: 2px;
-  background: repeating-linear-gradient(
-    180deg,
-    #fff4d6 0 4px,
-    #e98ba5 4px 8px
-  );
-  border: 1px solid #d88b79;
+  width: 5px;
+  height: 10px;
 }
-
-.candle.out .flame {
-  opacity: 0;
-  transform: translateY(-10px) scale(0);
-}
-
+  
 .blow-button {
   margin-top: 15px;
 }
@@ -214,22 +220,26 @@ button {
 
 
 <div class="cake-scene">
-  <div class="cake-body">
-    <div class="icing"></div>
-    <div class="cake-decoration">🍓　🍒　🍓</div>
-  </div>
-
-  <div class="cake-top"></div>
-
-  <div class="candle-grid" id="candleGrid"></div>
+  
+<div class="cake-body">
+  <div class="icing"></div>
+  <div class="cake-decoration">🍓　🍒　🍓</div>
 </div>
 
-<p id="cakeText">
-  30 candles for 30 wonderful years! ❤️
-</p>
+<div class="cake-top"></div>
+
+<div class="number-candle">
+  <span>🔥</span>
+  <strong>30</strong>
+</div>
+
+<div class="candle-grid" id="candleGrid"></div>
+  
+</div>
+
 
 <button class="blow-button" onclick="blow()">
-  💨 Blow out all 30 candles!
+  💨 Blow out the candles!
 </button>
     
   </div>
@@ -393,7 +403,7 @@ reasons.forEach((reason,index) => {
 
 const candleGrid = document.getElementById("candleGrid");
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 6; i++) {
   const candle = document.createElement("button");
   candle.className = "candle";
   candle.innerHTML =
@@ -412,9 +422,9 @@ for (let i = 0; i < 30; i++) {
 
 function updateCake() {
   document.getElementById("cakeText").textContent =
-    candlesOut + " / 30 candles blown out! ❤️";
+    candlesOut + " / 6 candles blown out! ❤️";
 
-  if (candlesOut === 30) {
+  if (candlesOut === 6) {
     document.getElementById("cakeText").textContent =
       "HAPPY 30TH BIRTHDAY, GAGAN! 🎉❤️";
 

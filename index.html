@@ -368,7 +368,46 @@ button {
     transform: scale(1) translateY(0);
   }
 }
-  
+  #welcome {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px 22px;
+  animation: welcomeReveal 1.2s ease both;
+}
+
+#welcome h1 {
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+#welcome button {
+  margin-top: 22px;
+  animation: gentlePulse 2s ease-in-out infinite;
+}
+
+@keyframes welcomeReveal {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes titleGlow {
+  from { text-shadow: 0 0 5px #f5d49a55; }
+  to { text-shadow: 0 0 22px #f5d49aaa; }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
 </style>
 </head>
 <body>

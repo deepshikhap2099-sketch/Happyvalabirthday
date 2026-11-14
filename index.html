@@ -646,14 +646,27 @@ const music = document.getElementById("music");
 
 /* OPEN THE SURPRISE */
 function start() {
-  document.getElementById("surprise").style.display = "block";
+  const welcome = document.getElementById("welcome");
+  const surprise = document.getElementById("surprise");
+
+  welcome.style.transition = "opacity 0.8s ease";
+  welcome.style.opacity = "0";
+
+  setTimeout(() => {
+    welcome.style.display = "none";
+    surprise.style.display = "block";
+    surprise.style.opacity = "0";
+    surprise.style.transition = "opacity 1s ease";
+
+    requestAnimationFrame(() => {
+      surprise.style.opacity = "1";
+      surprise.scrollIntoView({ behavior: "smooth" });
+    });
+  }, 800);
 
   music.play().catch(() => {
     document.getElementById("musicButton").textContent = "🎵 Tap to play";
   });
-
-  document.getElementById("welcome").style.minHeight = "auto";
-  document.getElementById("surprise").scrollIntoView({ behavior: "smooth" });
 }
 
 /* MUSIC */

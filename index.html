@@ -791,20 +791,29 @@ function toggleMusic() {
 
 /* CONFETTI */
 function confetti() {
-  for (let i = 0; i < 35; i++) {
+  for (let i = 0; i < 60; i++) {
     const el = document.createElement("div");
-    el.textContent = ["✨", "❤️", "🎉", "⭐"][i % 4];
+    el.textContent = ["✨", "❤️", "🎉", "⭐", "💖"][i % 5];
 
-    el.style.cssText = `position:fixed;left:${Math.random() * 100}%;top:${Math.random() * 80}%;font-size:24px;pointer-events:none;z-index:110;transition:transform 2s,opacity 2s`;
+    el.style.cssText = `
+      position: fixed;
+      left: ${Math.random() * 100}%;
+      top: -40px;
+      font-size: ${20 + Math.random() * 18}px;
+      pointer-events: none;
+      z-index: 10000;
+      transition: transform 3s ease, opacity 3s ease;
+    `;
 
     document.body.appendChild(el);
 
     setTimeout(() => {
-      el.style.transform = `translateY(${150 + Math.random() * 250}px) rotate(360deg)`;
+      el.style.transform =
+        `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 720}deg)`;
       el.style.opacity = "0";
     }, 50);
 
-    setTimeout(() => el.remove(), 2200);
+    setTimeout(() => el.remove(), 3200);
   }
 }
 
@@ -991,9 +1000,12 @@ function changeSlide(direction) {
   function revealFinalMessage() {
   document.getElementById("finalMessage").style.display = "block";
   document.querySelector(".final-surprise button").style.display = "none";
-    confetti();
-fireworks();
+
+  confetti();
+  fireworks();
   }
+
+  
 function fireworks() {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -1010,9 +1022,11 @@ function fireworks() {
   document.body.appendChild(canvas);
 
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const width = window.innerWidth;
+  const height = window.innerHeight;
 
-  canvas.width = window.innerWidth * dpr;
-  canvas.height = window.innerHeight * dpr;
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
   ctx.scale(dpr, dpr);
 
   const particles = [];
@@ -1034,26 +1048,35 @@ function fireworks() {
     }
   }
 
-  burst(window.innerWidth * 0.25, window.innerHeight * 0.3);
-  burst(window.innerWidth * 0.75, window.innerHeight * 0.25);
-
-  const extraBursts = [
-    [0.5, 0.2],
-    [0.2, 0.45],
-    [0.8, 0.5],
-    [0.5, 0.35]
+  const bursts = [
+    { time: 0, x: 0.25, y: 0.3 },
+    { time: 0, x: 0.75, y: 0.25 },
+    { time: 500, x: 0.5, y: 0.2 },
+    { time: 1000, x: 0.2, y: 0.45 },
+    { time: 1500, x: 0.8, y: 0.5 },
+    { time: 2000, x: 0.5, y: 0.35 }
   ];
 
-  extraBursts.forEach(([x, y], i) => {
-    setTimeout(() => {
-      burst(window.innerWidth * x, window.innerHeight * y);
-    }, 450 + i * 400);
-  });
+  const startTime = performance.now();
+  let nextBurst = 0;
 
-  function animate() {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  function animate(now) {
+    const elapsed = now - startTime;
 
-    particles.forEach(p => {
+    while (
+      nextBurst < bursts.length &&
+      elapsed >= bursts[nextBurst].time
+    ) {
+      const b = bursts[nextBurst];
+      burst(width * b.x, height * b.y);
+      nextBurst++;
+    }
+
+    ctx.clearRect(0, 0, width, height);
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+
       p.x += p.vx;
       p.y += p.vy;
       p.vy += 0.045;
@@ -1064,23 +1087,21 @@ function fireworks() {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fill();
-    });
+
+      if (p.life <= 0) particles.splice(i, 1);
+    }
 
     ctx.globalAlpha = 1;
 
-    for (let i = particles.length - 1; i >= 0; i--) {
-      if (particles[i].life <= 0) particles.splice(i, 1);
-    }
-
-    if (particles.length > 0) {
+    if (nextBurst < bursts.length || particles.length > 0) {
       requestAnimationFrame(animate);
     } else {
       canvas.remove();
     }
   }
 
-  animate();
-}
+  requestAnimationFrame(animate);
+  }
 
   
 </script>

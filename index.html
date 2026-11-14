@@ -58,106 +58,121 @@ button {
 }
 
 
-
-.candle .flame {
-  font-size: 11px;
-}
-
-.candle .wax {
-  width: 5px;
-  height: 23px;
-  border-radius: 3px;
-}
-
+/* NEW BIRTHDAY CAKE DESIGN */
 
 .cake-scene {
   position: relative;
   width: 320px;
   max-width: 100%;
-  height: 190px;
+  height: 205px;
   margin: 25px auto;
 }
 
+/* Cake body */
 .cake-body {
   position: absolute;
+  left: 27px;
+  top: 88px;
+  width: 266px;
+  height: 95px;
   z-index: 1;
-  left: 25px;
-  top: 75px;
-  width: 270px;
-  height: 100px;
-  border-radius: 12px 12px 35px 35px;
-  background: linear-gradient(90deg, #b84f70, #f5b5c5, #c45b7b);
-  border: 3px solid #d78a9c;
-  box-shadow: 0 12px 0 #8e3c58;
-  overflow: hidden;
+  border-radius: 10px 10px 35px 35px;
+  background: linear-gradient(
+    180deg,
+    #fff0df 0 13%,
+    #e9a0b6 13% 25%,
+    #c65e83 25% 85%,
+    #a84668 85% 100%
+  );
+  border: 3px solid #f3c0cc;
+  box-shadow: 0 12px 0 #80334f;
 }
 
+/* Round top surface */
 .cake-top {
   position: absolute;
+  top: 43px;
+  left: 12px;
+  width: 296px;
+  height: 88px;
   z-index: 2;
-  top: 35px;
-  left: 15px;
-  width: 290px;
-  height: 75px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #fff0e5, #f8c6d2);
-  border: 4px solid #e5a0b0;
+  background: radial-gradient(
+    ellipse,
+    #fff4eb 0%,
+    #ffe0e8 70%,
+    #edabc0 100%
+  );
+  border: 4px solid #f3b9c9;
+  box-shadow: inset 0 -7px 0 #e99bb3;
 }
 
+/* Frosting details */
 .icing {
-  height: 24px;
-  background: #fff0e5;
-  border-radius: 0 0 45% 45%;
-  box-shadow: 0 8px 0 #f6d1d9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 22px;
+  background: #fff0df;
+  border-radius: 10px 10px 45% 45%;
 }
 
+/* Cake decorations */
 .cake-decoration {
   position: relative;
-  z-index: 2;
-  margin-top: 22px;
+  z-index: 3;
+  margin-top: 30px;
   text-align: center;
-  font-size: 25px;
+  font-size: 23px;
 }
 
-
+/* Thirty candles: three rows of ten */
 .candle-grid {
   position: absolute;
   z-index: 5;
-  top: 35px;
+  top: 43px;
   left: 50%;
   transform: translateX(-50%);
   width: 270px;
   display: grid;
-  grid-template-columns: repeat(15, 1fr);
-  grid-template-rows: repeat(2, 28px);
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(3, 22px);
+  justify-items: center;
+  align-items: end;
   gap: 0;
 }
-  
 
 .candle {
-  min-width: 0;
+  width: 20px;
+  height: 25px;
   padding: 0;
-  border: 0;
+  border: none;
   background: transparent;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+  cursor: pointer;
 }
 
 .candle .flame {
   font-size: 13px;
-  line-height: 14px;
+  line-height: 12px;
   transition: opacity .3s, transform .3s;
 }
 
 .candle .wax {
   display: block;
-  width: 6px;
-  height: 18px;
+  width: 7px;
+  height: 15px;
   border-radius: 2px;
-  background: linear-gradient(90deg, #d98a58, #fff0c9, #d98a58);
+  background: repeating-linear-gradient(
+    180deg,
+    #fff4d6 0 4px,
+    #e98ba5 4px 8px
+  );
+  border: 1px solid #d88b79;
 }
 
 .candle.out .flame {
@@ -168,6 +183,8 @@ button {
 .blow-button {
   margin-top: 15px;
 }
+
+
 
   
 </style>
@@ -195,16 +212,21 @@ button {
     <h2>Your Birthday Cake 🎂</h2>
     
 
+
 <div class="cake-scene">
-  <div class="candle-grid" id="candleGrid"></div>
-  <div class="cake-top"></div>
   <div class="cake-body">
     <div class="icing"></div>
     <div class="cake-decoration">🍓　🍒　🍓</div>
   </div>
+
+  <div class="cake-top"></div>
+
+  <div class="candle-grid" id="candleGrid"></div>
 </div>
 
-<p id="cakeText">30 candles for 30 wonderful years! ❤️</p>
+<p id="cakeText">
+  30 candles for 30 wonderful years! ❤️
+</p>
 
 <button class="blow-button" onclick="blow()">
   💨 Blow out all 30 candles!

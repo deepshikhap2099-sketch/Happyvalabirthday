@@ -601,67 +601,75 @@ button {
   🎵 Music
 </button>
 
+
 <script>
 const music = document.getElementById("music");
 
+/* OPEN THE SURPRISE */
 function start() {
-  document.getElementById("surprise").style.display="block";
-  music.play().catch(()=> {
-    document.getElementById("musicButton").textContent="🎵 Tap to play";
+  document.getElementById("surprise").style.display = "block";
+
+  music.play().catch(() => {
+    document.getElementById("musicButton").textContent = "🎵 Tap to play";
   });
-  document.getElementById("welcome").style.minHeight="auto";
-  document.getElementById("surprise").scrollIntoView({behavior:"smooth"});
+
+  document.getElementById("welcome").style.minHeight = "auto";
+  document.getElementById("surprise").scrollIntoView({ behavior: "smooth" });
 }
 
+/* MUSIC */
 function toggleMusic() {
-  if(music.paused) {
+  if (music.paused) {
     music.play();
-    document.getElementById("musicButton").textContent="🎵 Music";
+    document.getElementById("musicButton").textContent = "🎵 Music";
   } else {
     music.pause();
-    document.getElementById("musicButton").textContent="🔇 Muted";
+    document.getElementById("musicButton").textContent = "🔇 Muted";
   }
 }
 
-let blown=false;
-function blow() {
-  if(blown) return;
-  blown=true;
-  document.getElementById("cake").textContent="🍰";
-  document.getElementById("cakeText").textContent="YAY! Make a wish, birthday boy! ❤️";
-  confetti();
-}
-
+/* CONFETTI */
 function confetti() {
-  for(let i=0;i<35;i++) {
-    const el=document.createElement("div");
-    el.textContent=["✨","❤️","🎉","⭐"][i%4];
-    el.style.cssText=`position:fixed;left:${Math.random()*100}%;top:${Math.random()*80}%;font-size:24px;pointer-events:none;z-index:10;transition:transform 2s,opacity 2s`;
+  for (let i = 0; i < 35; i++) {
+    const el = document.createElement("div");
+    el.textContent = ["✨", "❤️", "🎉", "⭐"][i % 4];
+
+    el.style.cssText = `position:fixed;left:${Math.random() * 100}%;top:${Math.random() * 80}%;font-size:24px;pointer-events:none;z-index:110;transition:transform 2s,opacity 2s`;
+
     document.body.appendChild(el);
-    setTimeout(()=>{
-      el.style.transform=`translateY(${150+Math.random()*250}px) rotate(360deg)`;
-      el.style.opacity="0";
-    },50);
-    setTimeout(()=>el.remove(),2200);
+
+    setTimeout(() => {
+      el.style.transform = `translateY(${150 + Math.random() * 250}px) rotate(360deg)`;
+      el.style.opacity = "0";
+    }, 50);
+
+    setTimeout(() => el.remove(), 2200);
   }
 }
 
-setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.textContent=["❤️","💕","✨"][Math.floor(Math.random()*3)];
-  h.style.left=Math.random()*100+"%";
-  h.style.fontSize=(15+Math.random()*20)+"px";
+/* FLOATING HEARTS */
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.textContent = ["❤️", "💕", "✨"][Math.floor(Math.random() * 3)];
+  h.style.left = Math.random() * 100 + "%";
+  h.style.fontSize = (15 + Math.random() * 20) + "px";
+
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),7000);
-},900);
-  function openLetter() {
+  setTimeout(() => h.remove(), 7000);
+}, 900);
+
+/* LOVE LETTER */
+function openLetter() {
   const letter = document.getElementById("loveLetter");
 
-  letter.style.display = "block";
-  letter.scrollIntoView({behavior:"smooth",block:"center"});
+  if (letter) {
+    letter.style.display = "block";
+    letter.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 }
-  
+
+/* 30 PERSONAL REASONS */
 const reasons = [
 ["Your never-ending talks","Because silence was never part of your vocabulary. And I wouldn't have it any other way."],
 ["Your impatience","Even your impatient little self is somehow adorable."],
@@ -695,7 +703,7 @@ const reasons = [
 ["Simply YOU","After all these reasons, the biggest one is that I just love you."]
 ];
 
-
+/* HEART GRID AND POPUP */
 let openedReasons = new Set();
 
 const grid = document.getElementById("reasonGrid");
@@ -731,43 +739,17 @@ reasons.forEach((reason, index) => {
   grid.appendChild(button);
 });
 
+/* CLOSE HEART POPUP */
 function closeReason(event) {
   if (event && event.target !== detail) return;
 
   detail.classList.remove("show");
   document.body.style.overflow = "";
 }
-  
 
-const grid = document.getElementById("reasonGrid");
-
-reasons.forEach((reason,index) => {
-  const button = document.createElement("button");
-  button.className = "reason-heart";
-  button.innerHTML = `❤️<span>${index+1}</span>`;
-
-  button.onclick = () => {
-    document.getElementById("reasonTitle").textContent = reason[0];
-    document.getElementById("reasonText").textContent = reason[1];
-
-    const detail = document.getElementById("reasonDetail");
-    detail.style.display = "block";
-
-    button.classList.add("opened");
-    openedReasons.add(index);
-
-    document.getElementById("openedCount").textContent =
-      `${openedReasons.size} / 30 hearts discovered ❤️`;
-
-    if(openedReasons.size === 30) {
-      document.getElementById("allOpened").style.display = "block";
-    }
-  };
-
-  grid.appendChild(button);
-});
-  
+/* BIRTHDAY CAKE CANDLES */
 let candlesOut = 0;
+let cakeCelebrated = false;
 
 document.querySelectorAll(".small-candle").forEach(candle => {
   candle.style.cursor = "pointer";
@@ -777,22 +759,30 @@ document.querySelectorAll(".small-candle").forEach(candle => {
 
     candle.classList.add("out");
     candle.querySelector(".small-flame").style.display = "none";
+
     candlesOut++;
     updateCake();
   });
 });
 
+/* UPDATE CAKE MESSAGE */
 function updateCake() {
-  document.getElementById("cakeText").textContent =
-    candlesOut + " / 6 little candles blown out! ❤️";
+  const cakeText = document.getElementById("cakeText");
 
   if (candlesOut === 6) {
-    document.getElementById("cakeText").textContent =
-      "HAPPY 30TH BIRTHDAY, GAGAN! 🎉❤️";
-    confetti();
+    cakeText.textContent = "HAPPY 30TH BIRTHDAY, GAGAN! 🎉❤️";
+
+    if (!cakeCelebrated) {
+      cakeCelebrated = true;
+      confetti();
+    }
+  } else {
+    cakeText.textContent =
+      candlesOut + " / 6 little candles blown out! ❤️";
   }
 }
 
+/* BLOW OUT ALL SIX CANDLES */
 function blow() {
   document.querySelectorAll(".small-candle").forEach(candle => {
     if (!candle.classList.contains("out")) {
@@ -804,8 +794,9 @@ function blow() {
 
   updateCake();
 }
-  
 </script>
+
+  
 </body>
 </html>
 

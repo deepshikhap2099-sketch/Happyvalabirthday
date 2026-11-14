@@ -261,6 +261,114 @@ button {
 }
   
   
+/* Heart grid */
+.reason-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 380px;
+  margin: 25px auto;
+}
+
+.reason-heart {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  padding: 12px 4px;
+  font-size: 23px;
+  border-radius: 15px;
+  background: #ffffff18;
+  border: 1px solid #f2d49a70;
+  color: white;
+}
+
+.reason-heart span {
+  display: block;
+  font-size: 10px;
+  margin-top: 3px;
+}
+
+.reason-heart.opened {
+  background: #f2d49a30;
+  border-color: #f2d49a;
+}
+
+/* Heart message popup */
+.reason-detail {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(15, 5, 15, 0.78);
+  backdrop-filter: blur(7px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.reason-detail.show {
+  display: flex;
+}
+
+.reason-popup {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  padding: 35px 24px 28px;
+  border: 1px solid #f2d49a;
+  border-radius: 25px;
+  background: linear-gradient(145deg, #6d203d, #2b1025);
+  box-shadow: 0 15px 50px #0008;
+  animation: popupAppear 0.3s ease;
+}
+
+.reason-popup h2 {
+  font-size: 25px;
+  margin: 12px 0;
+}
+
+.reason-popup p {
+  color: #fff0e7;
+  font-size: 16px;
+}
+
+.reason-popup .popup-heart {
+  font-size: 42px;
+  margin: 5px;
+}
+
+.reason-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  margin: 0;
+  padding: 5px 12px;
+  background: transparent;
+  color: #f5d49a;
+  border: none;
+  font-size: 24px;
+}
+
+.reason-position {
+  color: #e9c7d0;
+  font-size: 13px;
+}
+
+#allOpened {
+  display: none;
+}
+
+@keyframes popupAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+  
 </style>
 </head>
 <body>
@@ -451,10 +559,33 @@ button {
 
   <div class="reason-grid" id="reasonGrid"></div>
 
-  <div class="reason-detail" id="reasonDetail">
+  
+<div class="reason-detail" id="reasonDetail"
+     onclick="closeReason(event)">
+
+  <div class="reason-popup" onclick="event.stopPropagation()">
+
+    <button class="reason-close" onclick="closeReason()">
+      ×
+    </button>
+
+    <div class="popup-heart">❤️</div>
+
+    <p class="small">A LITTLE REASON WHY I LOVE YOU</p>
+
     <h2 id="reasonTitle"></h2>
+
     <p id="reasonText"></p>
+
+    <p class="reason-position" id="reasonPosition"></p>
+
+    <button onclick="closeReason()">
+      Back to the hearts ❤️
+    </button>
+
   </div>
+</div>
+  
 
   <p id="openedCount">0 / 30 hearts discovered ❤️</p>
 
@@ -564,7 +695,49 @@ const reasons = [
 ["Simply YOU","After all these reasons, the biggest one is that I just love you."]
 ];
 
+
 let openedReasons = new Set();
+
+const grid = document.getElementById("reasonGrid");
+const detail = document.getElementById("reasonDetail");
+
+reasons.forEach((reason, index) => {
+  const button = document.createElement("button");
+
+  button.className = "reason-heart";
+  button.innerHTML = `❤️<span>${index + 1}</span>`;
+
+  button.onclick = () => {
+    document.getElementById("reasonTitle").textContent = reason[0];
+    document.getElementById("reasonText").textContent = reason[1];
+
+    document.getElementById("reasonPosition").textContent =
+      `Reason ${index + 1} of 30`;
+
+    detail.classList.add("show");
+    document.body.style.overflow = "hidden";
+
+    button.classList.add("opened");
+    openedReasons.add(index);
+
+    document.getElementById("openedCount").textContent =
+      `${openedReasons.size} / 30 hearts discovered ❤️`;
+
+    if (openedReasons.size === 30) {
+      document.getElementById("allOpened").style.display = "block";
+    }
+  };
+
+  grid.appendChild(button);
+});
+
+function closeReason(event) {
+  if (event && event.target !== detail) return;
+
+  detail.classList.remove("show");
+  document.body.style.overflow = "";
+}
+  
 
 const grid = document.getElementById("reasonGrid");
 
